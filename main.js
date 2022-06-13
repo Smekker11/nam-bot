@@ -14,7 +14,8 @@ const niggerEmbed = new Discord.MessageEmbed()
   .setURL('http://smekker.go.ro')
   .setDescription("bot binbus zip-bomb.js V" + pjson.version)
   .addFields(
-    { name: 'bozgor', value: 'sumonneazaaaa bog radio', inline: true },
+    { name: 'bozgor', value: 'city ejszaka bog radio', inline: true },
+    { name: 'kiss', value: 'kaki kiss ejszaka', inline: true },
   //{ name: 'gonne6', value: 'send bog to brazil', inline: true },
   //{ name: 'sij', value: 'buklin 29 mihai grsa', inline: true },
   //{ name: 'stalpuss', value: 'iluminare elevata inc.', inline: true },
@@ -44,10 +45,6 @@ client.on('message', async message => {
   var server = message.guild;
   let member = server.members.cache.get(message.author.id);
   let meck = server.members.cache.get('622512432149037057');
-  if (command.includes("help") == true) {
-    message.reply(niggerEmbed);
-    return;
-  }
   if (message.author.bot) return;
   // if (r6.includes(command)) boolradu = boolradu + 1;
   if (command.includes("bozgor")) boolradu = boolradu + 1;
@@ -60,25 +57,35 @@ client.on('message', async message => {
   boolradu = 0;
   const connection = message.member.voice.channel;
 
-  if(message.member.voice.channel && !message.author.bot){
-    const connection = await message.member.voice.channel.join();
-    const citdispatcher = connection.play('https://mscp1.gazduireradio.ro/cityradio');
-    citdispatcher.on('start', () => {
-      console.log('bog ejszaka radio!');
-    });
-    citdispatcher.on('finish', () => {
-      console.log('bobzgor radio nem');
-    });
-    citdispatcher.on('error', console.error);
+  if(message.member.voice.channel){
     if(command.includes('bozgor') == true){
-      connection.play('https://mscp1.gazduireradio.ro/cityradio');
-      message.reply("city-raBio livrare in domiciliu bogozor kurtos kalacs");
+      const connection = await message.member.voice.channel.join();
+      const citdispatcher = connection.play('https://mscp1.gazduireradio.ro/cityradio');
+      citdispatcher.on('start', () => {
+        console.log('bog ejszaka radio!');
+      });
+      message.reply("city-raBio az igazi ejszakai radio!");
+      await connection.on("disconnect" , () => {
+        citdispatcher.destroy();
+      });
+    }
+
+    if(command.includes('kiss') == true){
+      const connection = await message.member.voice.channel.join();
+      const citdispatcher = connection.play('https://live.kissfm.ro/kissfm.aacp');
+      citdispatcher.on('start', () => {
+        console.log('romaniai kiss ejszaka radio!');
+      });
+      message.reply("romaniai szar kiss fm ejszaka");
       await connection.on("disconnect" , () => {
         citdispatcher.destroy();
       });
     }
    }
+   if (command.includes("help") == true) {
+    message.reply(niggerEmbed);
+  }
   }); 
 
 
-client.login('');
+client.login('ODE0MjY1MTY1ODE4MjMyOTAy.GhypDD.g2M7HPRV-DkV8SrZKawaurHhCuACIHZjur2RkY');
